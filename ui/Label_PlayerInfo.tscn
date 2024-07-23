@@ -1,0 +1,8 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource type="Script" path="res://Demo/CONNECT4/connect4.gd" id=1]
+
+[node name="Label_PlayerInfo" type="Label"]
+text = "Current Player: Red"
+rect_min_size = Vector2(200, 40)
+script = ExtResource(1)

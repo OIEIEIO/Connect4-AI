@@ -1,0 +1,87 @@
+[gd_scene load_steps=2 format=3 uid="uid://gp08agtnkh8k"]
+
+[ext_resource type="Script" path="res://Demo/CONNECT4/connect4.gd" id="1"]
+
+[node name="Connect4" type="Node2D"]
+script = ExtResource("1")
+
+[node name="CenterContainer" type="CenterContainer" parent="."]
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+grow_horizontal = 2
+size_flags_horizontal = 4
+
+[node name="Board" type="Node2D" parent="CenterContainer"]
+position = Vector2(450, 25)
+
+[node name="Cells" type="Node2D" parent="CenterContainer/Board"]
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="VBoxContainer" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(400, 400)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = -738.0
+offset_top = -59.0
+offset_right = 79.0
+offset_bottom = 1193.0
+grow_horizontal = 2
+scale = Vector2(0.404992, 0.734185)
+alignment = 1
+
+[node name="OptionButton1" type="Button" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Minimax AI"
+
+[node name="OptionButton2" type="Button" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Nueral Net AI"
+
+[node name="OptionButton3" type="Button" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Q Learning AI"
+
+[node name="OptionButton4" type="Button" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(150, 200)
+layout_mode = 2
+theme_override_font_sizes/font_size = 72
+text = "Random AI"
+
+[node name="Label_PlayerInfo" type="Label" parent="UI/VBoxContainer"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 60
+horizontal_alignment = 1
+vertical_alignment = 3
+
+[node name="VBoxContainer2" type="VBoxContainer" parent="UI"]
+custom_minimum_size = Vector2(400, 400)
+anchors_preset = 5
+anchor_left = 0.5
+anchor_right = 0.5
+offset_left = 398.0
+offset_top = -86.0
+offset_right = 1215.0
+offset_bottom = 1166.0
+grow_horizontal = 2
+scale = Vector2(0.404992, 0.734185)
+alignment = 1
+
+[node name="Label_PlayerInfo_2" type="Label" parent="UI/VBoxContainer2"]
+custom_minimum_size = Vector2(120, 200)
+layout_mode = 2
+size_flags_vertical = 1
+theme_override_font_sizes/font_size = 60
+text = "Player Info"
+horizontal_alignment = 1
+vertical_alignment = 3

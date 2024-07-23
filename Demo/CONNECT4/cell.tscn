@@ -1,0 +1,6 @@
+[gd_scene load_steps=1 format=2]
+
+[ext_resource path="res://assets/blue_disc.png" type="Texture2D" id=1]
+
+[node name="Cell" type="Sprite2D"]
+texture = ExtResource( 1 )
