@@ -5,6 +5,7 @@ var cells_node
 var current_player: String = "red"  # 'red' for player, 'yellow' for AI
 var board: Array = []  # Declare the board variable
 var ai_type: String = "random"  # AI type to switch between different algorithms
+var messages: Array = []  # Store messages to display
 
 # Load Minimax script
 var minimax_ai = load("res://addons/ai_algorithms/Scripts/Minimax/minimax.gd").new()
@@ -31,7 +32,6 @@ func _ready():
 	$UI/VBoxContainer/OptionButton2.connect("pressed", Callable(self, "_on_OptionButton2_pressed"))
 	$UI/VBoxContainer/OptionButton3.connect("pressed", Callable(self, "_on_OptionButton3_pressed"))
 	$UI/VBoxContainer/OptionButton4.connect("pressed", Callable(self, "_on_OptionButton4_pressed"))
-	
 
 	update_player_info("Current Player: " + current_player)
 	init_board()
@@ -78,11 +78,15 @@ func player_move(column):
 		var win_coords = check_win(current_player)
 		if win_coords:
 			print("Player " + str(current_player) + " wins!")
+			messages.append("Player " + str(current_player) + " wins!")
+			display_messages()
 			await highlight_winning_discs(win_coords)
 			await game_over()
 			return
 		elif board_full():
 			print("The board is full. It's a draw!")
+			messages.append("The board is full. It's a draw!")
+			display_messages()
 			await game_over()
 			return
 		else:
@@ -94,22 +98,32 @@ func ai_move():
 	var column
 	if ai_type == "random":
 		column = randi() % 7
-		while not make_move(column, current_player):
+		while not can_make_move(board, column):
 			column = randi() % 7
+		messages.append("Random AI made move at column: " + str(column))
 	elif ai_type == "minimax":
 		column = minimax_ai.get_best_move(board, current_player)
-		if column == null or column < 0 or column >= 7:
-			print("Error: Invalid column chosen by AI")
-			return
+		messages.append("Minimax AI made move at column: " + str(column))
+	# Add more AI types as needed
+	if can_make_move(board, column):
 		make_move(column, current_player)
+		display_messages()
+	else:
+		print("Error: Invalid column chosen by AI")
+		messages.append("Error: Invalid column chosen by AI")
+		display_messages()
 
 	var win_coords = check_win(current_player)
 	if win_coords:
 		print("Player " + str(current_player) + " wins!")
+		messages.append("Player " + str(current_player) + " wins!")
+		display_messages()
 		await highlight_winning_discs(win_coords)
 		await game_over()
 	elif board_full():
 		print("The board is full. It's a draw!")
+		messages.append("The board is full. It's a draw!")
+		display_messages()
 		await game_over()
 	else:
 		switch_player()
@@ -117,6 +131,8 @@ func ai_move():
 func make_move(column, player):
 	if column < 0 or column >= 7:
 		print("Error: Column out of bounds")
+		messages.append("Error: Column out of bounds")
+		display_messages()
 		return false
 	for i in range(5, -1, -1):
 		if board[i][column] == "blue":
@@ -124,11 +140,16 @@ func make_move(column, player):
 			update_visual(i, column, player)
 			print("Move made at: ", i, column, " by ", player)
 			return true
+	print("Error: Column is full")
+	messages.append("Error: Column is full")
+	display_messages()
 	return false
 
 func update_visual(row, column, player):
 	if cells_node == null:
 		print("Error: Cells node not found in update_visual!")
+		messages.append("Error: Cells node not found in update_visual!")
+		display_messages()
 		return
 	var cell_instance = cells_node.get_child(row * 7 + column)
 	if player == "red":
@@ -153,8 +174,7 @@ func check_win(player):
 		for col in range(4):
 			if board[row][col] == player and board[row][col + 1] == player and board[row][col + 2] == player and board[row][col + 3] == player:
 				return [[row, col], [row, col + 1], [row, col + 2], [row, col + 3]]
-
-	# Check vertical win
+		# Check vertical win
 	for col in range(7):
 		for row in range(3):
 			if board[row][col] == player and board[row + 1][col] == player and board[row + 2][col] == player and board[row + 3][col] == player:
@@ -183,12 +203,16 @@ func board_full():
 func game_over():
 	# Show game over message or dialog
 	print("Game over. Restarting...")
+	messages.append("Game over. Restarting...")
+	display_messages()
 	# Wait for a moment and restart the game
 	await get_tree().create_timer(2.0).timeout
 	init_board()
 	create_board_visuals()
 	current_player = "red"
 	update_player_info("Current Player: " + current_player)
+	messages.clear()
+	display_messages()
 
 func highlight_winning_discs(win_coords):
 	for i in range(3):
@@ -204,30 +228,41 @@ func highlight_winning_discs(win_coords):
 			var col = coord[1]
 			var cell_instance = cells_node.get_child(row * 7 + col)
 			if cell_instance:
-				if current_player == "red":
-					cell_instance.texture = load("res://assets/red_disc.png")
-				elif current_player == "yellow":
-					cell_instance.texture = load("res://assets/yellow_disc.png")
+				cell_instance.texture = load("res://assets/yellow_disc.png") if current_player == "yellow" else load("res://assets/red_disc.png")
 		await get_tree().create_timer(0.5).timeout
 
 func update_player_info(info):
 	$UI/VBoxContainer/Label_PlayerInfo.text = info
 
+func display_messages():
+	var display_text = ""
+	for message in messages:
+		display_text += message + "\n"
+	$UI/VBoxContainer2/Label_GameInfo.text = display_text
+
+func can_make_move(board, col):
+	return board[0][col] == "blue"
+
 func _on_OptionButton1_pressed():
 	print("Minimax AI selected")
 	ai_type = "minimax"
+	messages.append("Minimax AI selected")
+	display_messages()
 
 func _on_OptionButton2_pressed():
 	print("Neural Net AI selected")
 	ai_type = "neural_net"
+	messages.append("Neural Net AI selected")
+	display_messages()
 
 func _on_OptionButton3_pressed():
 	print("Q Learning AI selected")
 	ai_type = "q_learning"
+	messages.append("Q Learning AI selected")
+	display_messages()
 
 func _on_OptionButton4_pressed():
 	print("Random AI selected")
 	ai_type = "random"
-
-func update_player_info_2(info):
-	$UI/VBoxContainer2/Label_PlayerInfo_2.text = info
+	messages.append("Random AI selected")
+	display_messages()

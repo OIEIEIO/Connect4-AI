@@ -69,19 +69,19 @@ custom_minimum_size = Vector2(400, 400)
 anchors_preset = 5
 anchor_left = 0.5
 anchor_right = 0.5
-offset_left = 398.0
-offset_top = -86.0
-offset_right = 1215.0
-offset_bottom = 1166.0
+offset_left = 406.0
+offset_top = 30.0
+offset_right = 1223.0
+offset_bottom = 888.0
 grow_horizontal = 2
 scale = Vector2(0.404992, 0.734185)
 alignment = 1
 
-[node name="Label_PlayerInfo_2" type="Label" parent="UI/VBoxContainer2"]
+[node name="Label_GameInfo" type="Label" parent="UI/VBoxContainer2"]
 custom_minimum_size = Vector2(120, 200)
 layout_mode = 2
 size_flags_vertical = 1
-theme_override_font_sizes/font_size = 60
-text = "Player Info"
+theme_override_font_sizes/font_size = 48
+text = "Game Info"
 horizontal_alignment = 1
 vertical_alignment = 3
