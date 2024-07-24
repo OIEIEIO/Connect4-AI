@@ -1,5 +1,7 @@
 # Connect 4 AI Game
 
+![Game Screenshot](https://github.com/OIEIEIO/Connect4-AI/blob/main/screenshots/Screenshot%202024-07-24%20093554.png)
+
 ## Overview
 Welcome to the Connect 4 AI Game! This project is a fun and educational tool designed to explore various AI algorithms and their application in gameplay. It provides an environment where users can interact with different AI opponents, understand their strategies, and learn how these algorithms are implemented.
 
