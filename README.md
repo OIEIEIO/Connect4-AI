@@ -232,6 +232,7 @@ Learning Process:
 - Exploration: Initially, explore different moves to learn their outcomes.
 - Exploitation: Over time, exploit the moves that have led to higher rewards.
 - Policy Update: Update the policy based on the rewards received from different actions, guiding the agent to make better decisions.
+```
 
 ## Conclusion
 This project is more than just a game; it's an educational tool designed to make AI accessible and understandable. By exploring the various AI algorithms used in this Connect 4 game, you can gain valuable insights into how AI works and how it can be applied to solve complex problems.
