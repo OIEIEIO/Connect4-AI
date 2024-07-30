@@ -178,7 +178,11 @@ By combining these types of data and following best practices, you can create a 
 
 ### Using h5py in the Connect4-AI Project for Writing Neural Networks and Training Algorithms
 
-Leverage h5py to lay the groundwork for creating and training neural networks in Connect4-AI project. By collecting data through normal play and simulations, you enable the neural network to train effectively through self-play. Here's how to do it: ```Using Collected Data:
+Leverage h5py to lay the groundwork for creating and training neural networks in Connect4-AI project. By collecting data through normal play and simulations, you enable the neural network to train effectively through self-play. Here's how to do it: 
+
+[![Watch the video](https://github.com/OIEIEIO/Connect4-AI/blob/main/screenshots/Connect4-AI-video.png)](https://github.com/OIEIEIO/Connect4-AI/blob/main/screenshots/connect4_game.mp4)
+
+```Using Collected Data:
 - Simulation and Self-Play: Simulate games and let the neural network play against itself to generate large amounts of training data.
 
 ## Reinforcement Learning in Connect4-AI:
